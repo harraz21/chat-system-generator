@@ -8,8 +8,21 @@ services:
         MYSQL_ROOT_PASSWORD: password
         MYSQL_DATABASE: instachat
         MYSQL_PASSWORD: password
+        MYSQL_USER: user
     ports:
        - "3307:3306"
+  phpmyadmin:
+    image: phpmyadmin
+    restart: always
+    ports:
+      - 8080:80
+    environment:
+      - PMA_ARBITRARY=1
+  redis:
+    image: 'redis:5-alpine'
+    command: redis-server
+    ports:
+      - '6380:6379'
   app: 
     build: .
     command: rails s -p 3000 -b '0.0.0.0'
@@ -19,10 +32,59 @@ services:
        - "3001:3000"
     depends_on:
       - db
+      - redis
+      - kafka
     links:
       - db
+      - kafka:kafka
     environment:
              DB_USER: root
              DB_NAME: instachat
              DB_PASSWORD: password
              DB_HOST: db
+             REDIS_HOST: redis
+  go-app:
+    build:
+      dockerfile: Dockerfile
+      context: .
+      target: dev
+    volumes:
+      - .:/opt/app/api
+  zookeeper:
+      image: confluentinc/cp-zookeeper:7.0.1
+      container_name: zookeeper
+      environment:
+        ZOOKEEPER_CLIENT_PORT: 2181
+        ZOOKEEPER_TICK_TIME: 2000
+
+  kafka:
+      image: confluentinc/cp-kafka:7.0.1
+      depends_on:
+        - zookeeper
+      ports:
+        - 29092:29092
+      environment:
+        KAFKA_BROKER_ID: 1
+        ADVERTISED_HOST: 127.0.0.1
+        ADVERTISED_HOST: 9092
+        KAFKA_ZOOKEEPER_CONNECT: zookeeper:2181
+        KAFKA_ADVERTISED_LISTENERS: PLAINTEXT://kafka:9092,PLAINTEXT_HOST://localhost:29092
+        KAFKA_LISTENER_SECURITY_PROTOCOL_MAP: PLAINTEXT:PLAINTEXT,PLAINTEXT_HOST:PLAINTEXT
+        KAFKA_INTER_BROKER_LISTENER_NAME: PLAINTEXT
+        KAFKA_NUM_PARTITIONS: 3
+  kowl:
+      image: quay.io/cloudhut/kowl:v1.5.0
+      restart: on-failure
+      hostname: kowl
+      volumes:
+      - ./config.yaml:/etc/kowl/config.yaml
+      ports:
+      - "7000:7000"
+      entrypoint: ./kowl --config.filepath=/etc/kowl/config.yaml
+      depends_on:
+        - kafka
+      environment: 
+        SERVER_LISTENPORT: 7000
+      links:
+        - kafka:kafka
+          
