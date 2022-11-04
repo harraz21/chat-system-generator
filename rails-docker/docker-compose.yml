@@ -25,7 +25,8 @@ services:
       - '6380:6379'
   app: 
     build: .
-    command: rails s -p 3000 -b '0.0.0.0'
+    command: bundle exec rails s -p 3000 -b '0.0.0.0' 
+      
     volumes: 
             - ".:/app"
     ports: 
@@ -43,13 +44,28 @@ services:
              DB_PASSWORD: password
              DB_HOST: db
              REDIS_HOST: redis
-  go-app:
-    build:
-      dockerfile: Dockerfile
-      context: .
-      target: dev
-    volumes:
-      - .:/opt/app/api
+  consumer: 
+    build: .
+    command:  bundle exec racecar CreateChatConsumer --trace
+      
+    volumes: 
+            - ".:/app"
+    ports: 
+       - "3003:3002"
+    depends_on:
+      - db
+      - redis
+      - kafka
+      - app
+    links:
+      - db
+      - kafka:kafka
+    environment:
+             DB_USER: root
+             DB_NAME: instachat
+             DB_PASSWORD: password
+             DB_HOST: db
+             REDIS_HOST: redis
   zookeeper:
       image: confluentinc/cp-zookeeper:7.0.1
       container_name: zookeeper
@@ -71,7 +87,8 @@ services:
         KAFKA_ADVERTISED_LISTENERS: PLAINTEXT://kafka:9092,PLAINTEXT_HOST://localhost:29092
         KAFKA_LISTENER_SECURITY_PROTOCOL_MAP: PLAINTEXT:PLAINTEXT,PLAINTEXT_HOST:PLAINTEXT
         KAFKA_INTER_BROKER_LISTENER_NAME: PLAINTEXT
-        KAFKA_NUM_PARTITIONS: 3
+        KAFKA_NUM_PARTITIONS: 1
+        KAFKA_OFFSETS_TOPIC_REPLICATION_FACTOR: 1
   kowl:
       image: quay.io/cloudhut/kowl:v1.5.0
       restart: on-failure

@@ -25,7 +25,7 @@ module Api
             $redis.set(params[:application_token] + '_' + "#{number}", 0)
             require "delivery_boy"
             message = { :token => params[:application_token], :chat_number => number}
-            DeliveryBoy.deliver_async message.to_json , topic: "create_chat"
+            DeliveryBoy.deliver_async message.to_json , topic: "chat_create"
             render json: number
         end
       end
