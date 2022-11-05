@@ -3,9 +3,10 @@ Rails.application.routes.draw do
     namespace :v1 do
       resources :applications, param: :token do
         resources :chats, param: :number do
-          resources :messages
+          resources :messages, param: :number do
           end
         end
       end
     end
   end
+end
