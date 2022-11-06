@@ -44,6 +44,11 @@ gem 'resque-scheduler'
 gem 'delivery_boy'
 gem 'phobos'
 gem 'racecar'
+gem 'searchkick'
+gem "elasticsearch-model"
+gem "elasticsearch-rails"
+gem 'elasticsearch-api'
+gem 'elasticsearch-ruby'
 
 # Use Capistrano for deployment
 # gem 'capistrano-rails', group: :development

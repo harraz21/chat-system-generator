@@ -4,26 +4,21 @@ module Api
         require "delivery_boy"
 
         def index
-          Messages.all
+          Message.all # except to remove ids
         end
   
         def update
-        end
-        
-        # GET /user/1
-        # GET /user/1.json
-        # def show
-        #   @chatapplications = ChatApplication.find(params[:id])
-  
-        #   render json: @chatapplications
-        # end
-  
-        def update
+          # handle elastic search if not yet written to index
+          # try again later
+          # update_message : es_keys, and num of retries 9    // 
+          return ok
         end
 
-        # def delete
-        # end
+        def show
+          message
+        end
   
+
         def create
             chat_redis_key = "#{params[:application_token]}_#{params[:chat_number]}"
             messages_count = $redis.get(chat_redis_key)
@@ -37,7 +32,7 @@ module Api
                 render json: number
             else
                 render json: "chat number or application token not found!", status: 400
-            end   
+            end
         end
       end
     end

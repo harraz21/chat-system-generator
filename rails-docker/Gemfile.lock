@@ -99,6 +99,22 @@ GEM
       dry-core (~> 0.5, >= 0.5)
       dry-initializer (~> 3.0)
       dry-schema (~> 1.8, >= 1.8.0)
+    elasticsearch (7.17.7)
+      elasticsearch-api (= 7.17.7)
+      elasticsearch-transport (= 7.17.7)
+    elasticsearch-api (7.17.7)
+      multi_json
+    elasticsearch-model (7.2.1)
+      activesupport (> 3)
+      elasticsearch (~> 7)
+      hashie
+    elasticsearch-rails (7.2.1)
+    elasticsearch-ruby (0.0.4)
+      activesupport (>= 3.0.0)
+      thrift
+    elasticsearch-transport (7.17.7)
+      faraday (~> 1)
+      multi_json
     envlogic (1.1.4)
       dry-inflector (~> 0.1)
     erubis (2.7.0)
@@ -106,12 +122,36 @@ GEM
       tzinfo
     execjs (2.8.1)
     exponential-backoff (0.0.4)
+    faraday (1.10.2)
+      faraday-em_http (~> 1.0)
+      faraday-em_synchrony (~> 1.0)
+      faraday-excon (~> 1.1)
+      faraday-httpclient (~> 1.0)
+      faraday-multipart (~> 1.0)
+      faraday-net_http (~> 1.0)
+      faraday-net_http_persistent (~> 1.0)
+      faraday-patron (~> 1.0)
+      faraday-rack (~> 1.0)
+      faraday-retry (~> 1.0)
+      ruby2_keywords (>= 0.0.4)
+    faraday-em_http (1.0.0)
+    faraday-em_synchrony (1.0.0)
+    faraday-excon (1.1.0)
+    faraday-httpclient (1.0.1)
+    faraday-multipart (1.0.4)
+      multipart-post (~> 2)
+    faraday-net_http (1.0.1)
+    faraday-net_http_persistent (1.2.0)
+    faraday-patron (1.0.0)
+    faraday-rack (1.0.0)
+    faraday-retry (1.0.3)
     ffi (1.15.5)
     fugit (1.7.2)
       et-orbi (~> 1, >= 1.2.7)
       raabro (~> 1.4)
     globalid (1.0.0)
       activesupport (>= 5.0)
+    hashie (5.0.0)
     i18n (1.12.0)
       concurrent-ruby (~> 1.0)
     jbuilder (2.11.5)
@@ -154,6 +194,7 @@ GEM
     minitest (5.15.0)
     mono_logger (1.1.1)
     multi_json (1.15.0)
+    multipart-post (2.2.3)
     mustermann (3.0.0)
       ruby2_keywords (~> 0.0.1)
     mysql2 (0.5.4)
@@ -264,6 +305,10 @@ GEM
       sprockets (>= 2.8, < 4.0)
       sprockets-rails (>= 2.0, < 4.0)
       tilt (>= 1.1, < 3)
+    searchkick (4.5.2)
+      activemodel (>= 5)
+      elasticsearch (>= 6)
+      hashie
     sinatra (3.0.2)
       mustermann (~> 3.0)
       rack (~> 2.2, >= 2.2.4)
@@ -282,6 +327,7 @@ GEM
       sprockets (>= 3.0.0)
     thor (1.2.1)
     thread_safe (0.3.6)
+    thrift (0.17.0)
     tilt (2.0.11)
     turbolinks (5.2.1)
       turbolinks-source (~> 5.2)
@@ -316,6 +362,10 @@ DEPENDENCIES
   byebug
   coffee-rails (~> 4.2)
   delivery_boy
+  elasticsearch-api
+  elasticsearch-model
+  elasticsearch-rails
+  elasticsearch-ruby
   jbuilder (~> 2.5)
   jquery-rails
   jsonapi-resources
@@ -334,6 +384,7 @@ DEPENDENCIES
   resque-scheduler
   ruby-kafka
   sass-rails (~> 5.0)
+  searchkick
   spring
   spring-watcher-listen (~> 2.0.0)
   turbolinks (~> 5)
