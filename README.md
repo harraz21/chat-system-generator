@@ -27,7 +27,7 @@ docker-compose up
 
 ###* POST Requests
 
-####        * Create a chat application given a name and return a token for the application
+####         Create a chat application given a name and return a token for the application
 ```
               http://localhost:3001/api/v1/applications?name=appsName
 ```
@@ -35,7 +35,7 @@ docker-compose up
 
 
 
-####        * Create chat with application token and return chat number
+####         Create chat with application token and return chat number
 ```
               http://localhost:3001/api/v1/applications/[application_token]/chats
 ```
@@ -43,7 +43,7 @@ docker-compose up
 
 
 
-####          * Create a message with application token, number and returns message number
+####           Create a message with application token, number and returns message number
 ```
                 http://localhost:3001/api/v1/applications/[application_token]/chats/[chat_number]/messages?message=hello world
 ```
@@ -52,7 +52,7 @@ docker-compose up
 
 ### * GET Requests
 
-####        * Get all applications
+####         Get all applications
 ```
               http://localhost:3001/api/v1/applications
 ```
@@ -60,15 +60,15 @@ docker-compose up
 
 
 
-####        * Get application with token 
+####         Get application with token 
 ```
-            http://localhost:3001/api/v1/applications/[application_token]
+              http://localhost:3001/api/v1/applications/[application_token]
 ```
 ![image](https://user-images.githubusercontent.com/35659954/200930760-b16e4146-22ff-4084-aa72-ff3196cc9455.png)
 
 
 
-####        * Get all chats with application token 
+####         Get all chats with application token 
 ```
               http://localhost:3001/api/v1/applications/[application_token]/chats
 ```
@@ -76,7 +76,7 @@ docker-compose up
 
 
 
-####          * Get chat with application token and chat number (all messsages that belong to the chat are listed inside the chat)
+####           Get chat with application token and chat number (all messsages that belong to the chat are listed inside the chat)
 ```
                 http://localhost:3001/api/v1/applications/[application_token]/chats/[chat_number]
 ```
@@ -84,14 +84,14 @@ docker-compose up
 
 
 
-####          * Search a chat with application token chat number and a search query
+####           Search a chat with application token chat number and a search query
 ```
                 http://localhost:3001/api/v1/applications/[token]/chats/[chat_number]/search?search_query=hello
 ```
 ![image](https://user-images.githubusercontent.com/35659954/200934040-4bbbc236-7ba3-46a9-8d58-af2b55c5fb8f.png)
 
 
-####           * Get all messages with application token and chat number
+####            Get all messages with application token and chat number
 ```
                   http://localhost:3001/api/v1/applications/[application_token]/chats/[chat_number]/messages
 ```
@@ -99,7 +99,7 @@ docker-compose up
 
 
 
-####            * Get a message with application token number, chat number and message number
+####             Get a message with application token number, chat number and message number
 ```
                   http://localhost:3001/api/v1/applications/[application_token]/chats/[chat_number]/messages/[message_number]
 ```
@@ -107,10 +107,10 @@ docker-compose up
 
 
 
-### * PUT Requests
+###  PUT Requests
 
 
-####          * Update message by token, chat number, message number and new message
+####           Update message by token, chat number, message number and new message
 ```
                 http://localhost:3001/api/v1/applications/[application_token]/chats/[chat_number]/messages/[message_number]/?message=[new message]
 ```
@@ -119,7 +119,16 @@ docker-compose up
 
 
 
-####          * Delete message by token, chat number and message number
+####           Update Application name by token and new name
+```
+                http://localhost:3001/api/v1/applications/[application_token]?name=[new_name]
+```
+
+
+
+### DELETE Requests
+
+####           Delete message by token, chat number and message number
 ```
                 http://localhost:3001/api/v1/applications/[application_token]/chats/[chat_number]/messages/[message_number]
 ```
@@ -127,7 +136,7 @@ docker-compose up
 
 
 
-####          * Delete chat by token and chat number
+####           Delete chat by token and chat number
 ```
                 http://localhost:3001/api/v1/applications/[application_token]/chats/[chat_number]
 ```
@@ -136,15 +145,10 @@ docker-compose up
 
 
 
-####          * Delete Application by token
+####           Delete Application by token
 ```
                 http://localhost:3001/api/v1/applications/[application_token]
 ```
 
 
-
-####          * Delete Chat by token chat number
-```
-                http://localhost:3001/api/v1/applications/[application_token]/chats/[chat_number]
-```
                 
