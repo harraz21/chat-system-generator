@@ -5,7 +5,7 @@ clone the repo
 ```
 git clone https://github.com/harraz21/chat-system.git
 ```
-To build the image go to the project's root directory
+To build the image for the first time go to the project's root directory
 ```
 cd chat-system-generator
 ```
