@@ -101,7 +101,7 @@ http://localhost:3001/api/v1/applications/[application_token]/chats/[chat_number
 
 #### Get a message with application token number, chat number and message number
 ```
-http://localhost:3001/api/v1/applications/0de73cfcc8f101fd3c011672bac6aab1/chats/1/messages/1
+http://localhost:3001/api/v1/applications/[application_token]/chats/[chat_number]/messages/[message_number]
 ```
 ![image](https://user-images.githubusercontent.com/35659954/200935778-5e45db81-d180-45cf-8929-c7f773daf4bf.png)
 
