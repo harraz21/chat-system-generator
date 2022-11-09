@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20221105120159) do
+ActiveRecord::Schema.define(version: 20221106011009) do
 
   create_table "applications", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=latin1" do |t|
     t.string   "name"
@@ -32,20 +32,13 @@ ActiveRecord::Schema.define(version: 20221105120159) do
     t.index ["chat_key"], name: "index_chats_on_chat_key", unique: true, using: :btree
   end
 
-  create_table "message_bodies", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=latin1" do |t|
-    t.string   "message_key"
-    t.string   "message_text"
-    t.datetime "created_at",   null: false
-    t.datetime "updated_at",   null: false
-    t.index ["message_key"], name: "index_message_bodies_on_message_key", using: :btree
-  end
-
   create_table "messages", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=latin1" do |t|
     t.integer  "number"
     t.integer  "chat_id"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.datetime "created_at",   null: false
+    t.datetime "updated_at",   null: false
     t.string   "chat_key"
+    t.string   "message_text"
     t.index ["chat_id"], name: "index_messages_on_chat_id", using: :btree
   end
 

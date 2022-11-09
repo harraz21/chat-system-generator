@@ -1,18 +1,27 @@
 class CreateMessageConsumer < Racecar::Consumer
   require "delivery_boy"
-  subscribes_to "message_create"
+  require "kafka_topics"
+  include KafkaMessageBuilder
+  include KeyBuilder
+  subscribes_to KafkaTopics::CREATE_MESSAGE
 
   def process(message)
-    ActiveRecord::Base.transaction do
-      data = JSON.parse(message.value)
-      chat = Chat.lock.where(number: data["chat_number"]).joins(:application).where("applications.token = '#{data["token"]}'").first
-      message_number = data["message_number"]
-      message_chat_key = "#{data["token"]}_#{data["chat_number"]}"
-      Message.create(number: message_number, chat_key: message_chat_key, chat: chat)
-      ####
-      MessageBody.create(message_key: "#{message_chat_key}", message_text: data["message_body"])
-      chat.message_count += 1
-      chat.save
+    data = JSON.parse(message.value)
+    Chat.transaction do
+      chat_number = data["chat_number"]
+      token = data["token"]
+      chat_key = KeyBuilder.build_chat_key(token, chat_number)
+      chat = Chat.lock.find_by(chat_key: chat_key)
+      if chat != nil
+        message_number = data["message_number"]
+        new_message = data["new_message"]
+        chat.message_count += 1
+        Message.create(number: message_number, chat_key: chat_key, message_text: new_message, chat: chat)
+        chat.save
+      elsif data["number_of_tries"] < 9
+        data["number_of_tries"] += 1
+        DeliveryBoy.deliver_async(data.to_json(), topic: KafkaTopics::CREATE_MESSAGE)
+      end
     end
   end
 end
