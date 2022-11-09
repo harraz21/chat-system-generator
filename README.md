@@ -5,7 +5,14 @@ clone the repo
 ```
 git clone https://github.com/harraz21/chat-system.git
 ```
-To build the image cd chat-system/rails-docker to be at the project's root directory
+To build the image go to the project's root directory
+```
+cd chat-system
+```
+```
+cd rails-docker
+```
+
 ``` 
 docker-compose build
 ```
