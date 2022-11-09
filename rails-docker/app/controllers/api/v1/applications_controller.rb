@@ -46,7 +46,7 @@ module Api
         token = params[:token]
         if $redis.exists(token)
           message = KafkaMessageBuilder.build_message_delete_application(token, number_of_tries: 0)
-          DeliveryBoy.deliver_async(message.to_json , topic: kafkaTopics::DELETE)
+          DeliveryBoy.deliver_async(message.to_json , topic: KafkaTopics::DELETE)
           render(json: {message: "deleting chat application", application_token: token}, status: :ok)
         else
           render(json: {message: "application not found"}, status: 404) 
