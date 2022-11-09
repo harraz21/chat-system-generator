@@ -25,7 +25,7 @@ docker-compose up
 
 ## API 
 
-###* POST Requests
+### POST Requests
 
 ####         Create a chat application given a name and return a token for the application
 ```
