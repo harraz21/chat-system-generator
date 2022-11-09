@@ -50,7 +50,7 @@ docker-compose up
 ![image](https://user-images.githubusercontent.com/35659954/200929603-84cfc6a1-b1ff-4eb1-84fe-4de569b7afd8.png)
 
 
-### * GET Requests
+###  GET Requests
 
 ####         Get all applications
 ```
