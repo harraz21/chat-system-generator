@@ -27,8 +27,7 @@ docker-compose up
 
 ### POST Requests
 
-Create a chat application given a name and return chat number
-returns a token for the application
+Create a chat application given a name and return a token for the application
 
 ```
 http://localhost:3001/api/v1/applications?name=appsName
@@ -37,7 +36,7 @@ http://localhost:3001/api/v1/applications?name=appsName
 
 ![create_chat_app](https://user-images.githubusercontent.com/35659954/200765306-46d00148-3d72-464e-a81e-87cd890622f2.png)
 
-Create chat with application token
+Create chat with application token and return chat number
 ```
 http://localhost:3001/api/v1/applications/[application_token]/chats
 ```
