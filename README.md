@@ -133,6 +133,7 @@ http://localhost:3001/api/v1/applications/[application_token]?name=[new_name]
 http://localhost:3001/api/v1/applications/[application_token]/chats/[chat_number]/messages/[message_number]
 ```
 ![image](https://user-images.githubusercontent.com/35659954/200939430-136d6d39-b82f-41c3-8a8f-79cb58707a29.png)
+![image](https://user-images.githubusercontent.com/35659954/200941270-d8eba5ad-48a9-4345-87e2-5da96eeed527.png)
 
 
 
@@ -140,9 +141,6 @@ http://localhost:3001/api/v1/applications/[application_token]/chats/[chat_number
 ```
 http://localhost:3001/api/v1/applications/[application_token]/chats/[chat_number]
 ```
-![image](https://user-images.githubusercontent.com/35659954/200940501-291f2b52-9b4f-4a1e-a259-ef63625ebe06.png)
-![image](https://user-images.githubusercontent.com/35659954/200941270-d8eba5ad-48a9-4345-87e2-5da96eeed527.png)
-
 
 
 #### Delete Application by token
